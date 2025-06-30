@@ -1,22 +1,22 @@
 const express = require("express");
-const app = express();  
-const PORT = 8000;
-// server start
-app.listen(PORT,()=>console.log('Server started at port 8000')); 
-app.use(express.urlencoded({extended: false}));
+const app = express();
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-// database connection
-const connectDB = require("./connection"); 
-connectDB();  // calling connection function 
+
+// server start
+const PORT = 3000;
+app.listen(PORT, () => console.log("Server started at port " + `${PORT}`));
+
+// database connection function
+const connectDB = require("./connection");
+connectDB();
 
 // importing routes
-const userRouter = require("./routes/user");  
-app.use("/api/users",userRouter); 
- 
-  
-// FLOW
-// user -> routes() -> controller(manipulate data of model) -> model(manipulate data of database) 
+const userRouter = require("./routes/user");
+app.use("/api/users", userRouter);
 
+
+// FLOW ==  user -> routes() -> controller(manipulate data of model) -> model(manipulate data of database)
 
 // app.get("/api/users",async(req,res)=>{
 //     const allusers = await User.find({});
@@ -26,11 +26,11 @@ app.use("/api/users",userRouter);
 // })
 // app.post("/api/users",async(req,res)=>{
 //     const body = await req.body;
-//     const {id,name,email,age} = body;   
+//     const {id,name,email,age} = body;
 //      // frontend ka data req.body mei available hota hai
 //      if(!id || !name || !email || !age){
 //         return res.status(400).json({message:"All fields are required"});
-//      } 
+//      }
 //      const user = new User({  // this line is creating a new user object in the database.
 //         id:id,
 //         name:name,
@@ -39,7 +39,7 @@ app.use("/api/users",userRouter);
 //      });
 //     await user.save();
 //     console.log(user);
-//     return res.json({status:"success"});   
+//     return res.json({status:"success"});
 // })
 
 // ROUTE for specific user
@@ -63,7 +63,3 @@ app.use("/api/users",userRouter);
 //         await User.findOneAndDelete({id:req.params.id});
 //         return res.json({status:"success"});
 //     })
-
-    
-
-
