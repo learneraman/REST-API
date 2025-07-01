@@ -1,7 +1,6 @@
-const express = require("express");
-const app = express();
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+const express = require("express");   // express ka instence
+const app = express();   //
+app.use(express.urlencoded({ extended: false }));   // Yeh middleware request body ko parse karta hai aur usse JSON format mein convert karta hai
 
 // server start
 const PORT = 3000;
@@ -11,6 +10,11 @@ app.listen(PORT, () => console.log("Server started at port " + `${PORT}`));
 const connectDB = require("./connection");
 connectDB();
 
+// default route
+app.get("/", (req, res) => {
+    res.send("Hello from Server this is home page");
+});
+
 // importing routes
 const userRouter = require("./routes/user");
 app.use("/api/users", userRouter);
@@ -18,6 +22,9 @@ app.use("/api/users", userRouter);
 
 // FLOW ==  user -> routes() -> controller(manipulate data of model) -> model(manipulate data of database)
 
+// to organize code we use MVC structure
+
+// REST API
 // app.get("/api/users",async(req,res)=>{
 //     const allusers = await User.find({});
 //     const html = `<ul><li>${allusers.map((user)=>`<li>${user.name}</li>`).join("")}</ul>`

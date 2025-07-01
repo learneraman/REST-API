@@ -5,8 +5,8 @@ async function handleGetAllUsers(req, res) {
   return res.json(allusers);
 }
 async function handlePostUser(req, res) {
-  const body = await req.body;
-  const { id, name, email, age } = body;
+  const { id, name, email, age } = req.body;
+  console.log(id, name, email, age);
   if (!id || !name || !email || !age) {
     return res.status(400).json({ message: "All fields are required" });
   }
